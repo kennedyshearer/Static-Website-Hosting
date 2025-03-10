@@ -145,8 +145,31 @@ Next up, time to move on to the redirect S3 Bucket.
 
 
 ### **2️⃣ Redirect S3 Bucket**
+Create the redirect S3 Bucket that will redirect all its received traffic to the main S3 Bucket.
 
+![Redrirect General Config](https://i.gyazo.com/c10617d2ceabb5ba6ce47d678127eaff.png)
 
+Then, go to **Static website hosting section**, at the bottom of the **Properties tab**:
+
+![Static Web Hosting disabled](https://i.gyazo.com/e913c3ef2993dbf7f63a3d09584daba5.png)
+
+Enable the static website hosting, but this time by **redirecting the requests for an object**. Specify the target Bucket (in this example *dream-big-work-hard-aws.com*), and leave the **Protocol field** as it is for the moment (*none*):
+
+![Edit static web hosting redirect](https://i.gyazo.com/f44367065fc1c0c461d91fbf653ca76f.png)
+
+Get temperory URL of redirect S3 Bucket redirect S3 Bucket:
+
+![Copy URL redirect Bucket](https://i.gyazo.com/959c39f21164afb10447807329f705a1.png)
+
+See what happens:
+
+![Unsuccessful site](https://i.gyazo.com/628474f752c9bd54f67d02c792dd7db9.png)
+
+Two things to take note of:
+- The redirection is done: you are redirected to your website (in this example *dream-big-work-hard-aws.com*);
+- But the website does not link to anything... `This site can't be reached`.
+
+To fix this, you need to head back into *Route 53* to configure the AWS created hosted zone to indicate somewhere that your domain name redirects to the main S3 Bucket so that you can access the static website.
 
 ---
 
