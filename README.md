@@ -311,6 +311,61 @@ The certificate is ready, let's move on and apply it to the website with CloudFr
 
 ## Create and configure CloudFront distributions
 
+Using CloudFront gives the ability to deploy websites in HTTPS and provide benefits using Edge locations for faster access to the website for users.
+
+
+### **1️⃣ Main CloudFront distribution**
+Before creating the main CloudFront distribution, go to the main S3 Bucket and copy the URL that you can find under the **Properties** tab > **Static website hosting** section:
+
+![Copy URL main](https://i.gyazo.com/e8a31a06688fe4d545b8af93e65706de.png)
+
+Now create the main CloudFront distribution:
+
+![Create distribution main](https://i.gyazo.com/bac585dd3808e85a7066cde2273f80b6.png)
+
+Under **Origin** > **Origin domain**, paste the copied main Bucket URL:
+
+![Origin domain](https://i.gyazo.com/0170a321553c269444634e2dfcd33f19.jpg)
+
+:warning: `Do NOT select drop-down options, those are incorrectly filled in (contains syntax error, I've tried).`
+
+Disable the **Origin shield** to avoid additional charges, and it's not necessary for this project. 
+
+This is what the **Origin** section should look like:
+
+![Origin shield](https://i.gyazo.com/8dc663b0cefbd9810b7e888d274894c9.png)
+
+Next, the **Default cache behavior** section.
+In this section, only change the **Viewer protocol policy** to *Redirect HTTP to HTTPS*. 
+
+This is what the **Default cache behavior** section should look like:
+
+![Default cache behavior](https://i.gyazo.com/8e5d27d16c207bab139cb3c43500dbac.png)
+
+Finally, the **Settings** section.
+Though the Price class does not effect the Free Tier once you stay within the 2,000,000 HTTP/HTTPS request limits. It will be best practice, to choose the Price Class that fits your needs.
+
+The choice for **Price class** was *Use only North America and Europe*:
+
+![Price Class](https://i.gyazo.com/966788b99f563f7ab5158de58d8e52ac.png)
+
+Fill in an **Alternate domain name (CNAME)** by inserting your main domain name:
+
+![Alternate domain name main](https://i.gyazo.com/89441851b18e0017d0fa51c6705c9bbd.png)
+
+In the **Custom SSL certificate** field, select the newly created certificate:
+
+![Custom SSL certificate](https://i.gyazo.com/cd3deb078151046c01a9ef52951987ed.png)
+
+Leave the **Legacy clients support** unselected to avoid a $600 bill at the end of the month:
+
+![Legacy clients support](https://i.gyazo.com/1eb9a2772ad41a142577f93037c6fe23.png)
+
+Now confirm and create the main CloudFront distribution and move on to starting the redirect CloudFront distribution.
+
+
+### **2️⃣ Redirect CloudFront distribution**
+
 
 
 ---
