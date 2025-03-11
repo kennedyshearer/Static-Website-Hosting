@@ -267,8 +267,50 @@ Doing this will make the website secure and more immune to certain web attacks.
 
 ## Create a SSL certificate with AWS Certificate Manager
 
+To create a SSL certificate, go to AWS Certificate Manager and request a certification:
+
+![Request certificate](https://i.gyazo.com/154d99ff3005a65556acc7d70675a7df.png)
+
+Select *Request a public certificate*, as the certificate will be used on a public website:
+
+![Request public certificate](https://i.gyazo.com/825ea25a5e0a17e77967029a4da5b088.png)
+
+When applying for an SSL certificate, you are asked to fill in *Fully Qualified Domain Names* (known as FQDN). In this case, there are two FQDNs: the non-www domain name (e.g. *dream-big-work-hard-aws.com*) and the www domain name (e.g. *www<nolink>.dream-big-work-hard-aws.com*). Fill them both in this same certificate so that the connections by these two addresses are in HTTPS.
+
+Next, choose a validation method, proving that the domain you are creating a certificate for actually belongs to you: imagine if anyone could create an SSL certificate for your site instead of you… Your website would face huge security issues. I advise you to choose the recommended choice, *DNS validation*.
+
+After that, validate the SSL Certificate creation request:
+
+![FQDN and DNS](https://i.gyazo.com/a2657b42ea83958a76c1bd2d89ccb885.png)
+
+The certificate is created, but not validated hence the status **Pending validation**; let's check the configuration:
+
+![Check certificate](https://i.gyazo.com/da94332e12a35cace72873f1ded43822.png)
+
+In the configurations, both DNS records of type CNAME need to be added in the hosted zone. In AWS, most of this is taken care of, so just select **Create records in Route 53**:
+
+![Create records in Route 53](https://i.gyazo.com/b88e4d9063d4a3060e9f488f2087bf47.png)
+
+Select the two FQDNs and finally **Create records**:
+
+![Creation of records](https://i.gyazo.com/055be8a0f07724b1f50ea5237a0cb78b.png)
+
+Now just wait a few minutes for a **Success* status:
+
+![Records created](https://i.gyazo.com/fa6bd5c9dabee90b8227316eb8bca23b.png)
+
+Done! AWS has inputted the CNAME records on your behalf. Verify by checking the hosted zone:
+
+![Hosted zone DNS records](https://i.gyazo.com/da53847027addd18d48a2c93b09ba09e.png)
+
+Now with the CNAME records added, the SSL certificate can be validated.
+
+The certificate is ready, let's move on and apply it to the website with CloudFront.
+
 ---
 
 ## Create and configure CloudFront distributions
+
+
 
 ---
