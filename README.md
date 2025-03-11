@@ -24,6 +24,26 @@ This project focuses on hosting a static HTTPS website using Amazon Web Services
 
 ---
 
+## Table of Contents
+
+1️⃣ [Topology](#topology)
+
+2️⃣ [Use a domain name](#use-a-domain-name)
+
+3️⃣ [Create and configure S3 Buckets](#create-and-configure-s3-buckets)
+
+4️⃣ [Link the domain to S3 Buckets with Route 53](link-the-domain-to-s3-buckets-with-route-53)
+
+5️⃣ [Create a SSL certificate with AWS Certificate Manager](#create-a-ssl-certificate-with-aws-certificate-manager)
+
+6️⃣ [Create and configure CloudFront distributions](#create-and-configure-cloudfront-distributions)
+
+---
+
+## Topology
+
+---
+
 ## Use a Domain name
 
 To host a website, you first need a domain name to access eaily and safely. To get a domain name you have two choices: buy that domain name either AWS or another third-party domain regisrar.
@@ -173,7 +193,7 @@ To fix this, you need to head back into *Route 53* to configure the AWS created 
 
 ---
 
-## Link the Domain S3 Buckets with Route 53
+## Link the domain to S3 Buckets with Route 53
 
 ---
 
