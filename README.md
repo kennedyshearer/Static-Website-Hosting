@@ -32,7 +32,7 @@ This project focuses on hosting a static HTTPS website using Amazon Web Services
 
 3️⃣ [Create and configure S3 Buckets](#create-and-configure-s3-buckets)
 
-4️⃣ [Link the domain to S3 Buckets with Route 53](link-the-domain-to-s3-buckets-with-route-53)
+4️⃣ [Link the domain to S3 Buckets with Route 53](#link-the-domain-to-s3-buckets-with-route-53)
 
 5️⃣ [Create a SSL certificate with AWS Certificate Manager](#create-a-ssl-certificate-with-aws-certificate-manager)
 
