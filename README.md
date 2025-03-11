@@ -24,7 +24,7 @@ This project focuses on hosting a static HTTPS website using Amazon Web Services
 
 ---
 
-## Table of Contents
+## 📋 Table of Contents
 
 1️⃣ [Topology](#topology)
 
@@ -81,7 +81,6 @@ To host your static website, you will need to create an S3 Bucket containing the
 In this example, the domain name will be *dream-big-work-hard-aws.com*.
 
 ##### Let get started.
-
 Two S3 Buckets will be created: a **main** Bucket which will be public and contain the pages of the website; and a **redirect** Bucket which will redirect traffic it receives to the main bucket.
 
 The main address of the website will use a non-www name (*dream-big-work-hard-aws.com*):
@@ -194,6 +193,75 @@ To fix this, you need to head back into *Route 53* to configure the AWS created 
 ---
 
 ## Link the domain to S3 Buckets with Route 53
+
+First, go to *Route 53* and look for the DNS records of the hosted zone:
+
+![Hosted Zone](https://i.gyazo.com/e0e4770a77c804059f3bd4646d42e9d4.png)
+
+So far user access to the website through the main and redirect web address is not possible as you will be prompted: `This site can't be reached`.
+
+And the goal is to:
+
+- Forward the traffic received on the main web address to the main S3 Bucket;
+- Forward the traffic received on the redirect web address to the redirect S3 Bucket.
+
+In order to do this, create new DNS records in the hosted zone, specifically A records (A for Address), which maps a domain to a physical IP address. In this case, AWS will provide the IP address of the Bucket.
+
+##### The first DNS record
+Route traffic from the main web address (*dream-big-work-hard-aws.com*):
+
+![Create record main](https://i.gyazo.com/56b7c78327b6d208fdf40ae1c5fba2d3.png)
+
+1. The main address is a non-www, so leave the *record name* as is.
+   
+2. Select the *Record type* A - to route the traffic to the main S3 Bucket.
+   
+3. Turn on *Alias* to specify the S3 Bucket of choice that traffic will be routed.
+   
+4. Choose the *Alias to S3 website endpoint* in the region where the Bucket is located (*us-east-1*), then select the Bucket that automatically displays in the next selection.
+
+5. Select the *Routing Policy* Simple routing.
+   
+6. Turn off *Evaluate target health* as it is unnecessary since the website is hosted on S3.
+
+After creating the first record, wait a few minutes and check if the website is accessible via the main web address (*dream-big-work-hard-aws.com*):
+
+![First record main](https://i.gyazo.com/7ac3e513c47fb8a641465b5ca155ba03.png)
+
+The website is now acessible through this URL, the first record is complete.
+
+##### The second DNS record
+Route the traffic of your redirect web address (*www<nolink>.cif-project.com*):
+
+![Create record redirect](https://i.gyazo.com/c0893899bb92169191a79737392f39a6.png)
+
+1. The redirect address is a www, so add **www** in the *record name* as is.
+   
+2. Select the *Record type* A - to route the traffic to the main S3 Bucket.
+   
+3. Turn on *Alias* to specify the S3 Bucket of choice that traffic will be routed.
+   
+4. Choose the *Alias to S3 website endpoint* in the region where the Bucket is located (*us-east-1*), then select the Bucket that automatically displays in the next selection.
+
+5. Select the *Routing Policy* Simple routing.
+   
+6. Turn off *Evaluate target health* as it is unnecessary since the website is hosted on S3.
+
+After creating the second record, wait a few minutes and check if the website is accessible via the redirect web address (*www.dream-big-work-hard-aws.com*).
+
+Still no access? Well this is the problem I ran into. Keep moving forward and we'll see if the problem is resolved later on.
+
+Also notice that from the main web address that it is not secure:
+
+![Not secure](https://i.gyazo.com/7f89ea5e582a16e35469c57fdddf27b5.png)
+
+The domain is brand-new so an SSL certificate hasn't been generated meaning the website uses HTTP instead of HTTPS. 
+
+To fix this:
+- Create an SSL certificate for the domain by using AWS Certificate Manager (ACM);
+- Use CloudFront to make the site issue HTTPS connections, adding the SSL certificate to the website, and redirecting all HTTP traffic to HTTPS.
+
+Doing this will make the website secure and more immune to certain web attacks.
 
 ---
 
