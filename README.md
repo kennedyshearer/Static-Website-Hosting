@@ -1,4 +1,4 @@
-# 🌐 Static-Website-Hosting
+# 🌎 Static-Website-Hosting
 
 ## 📌 Project Description  
 This project focuses on hosting a static HTTPS website using Amazon Web Services (AWS).
