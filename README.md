@@ -42,6 +42,10 @@ This project focuses on hosting a static HTTPS website using Amazon Web Services
 
 ## Topology
 
+<p align="center">
+  <img src="aws_website_diagram.png">
+</p>
+
 ---
 
 ## Use a Domain name
