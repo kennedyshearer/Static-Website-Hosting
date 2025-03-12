@@ -366,6 +366,63 @@ Now confirm and create the main CloudFront distribution and move on to starting 
 
 ### **2️⃣ Redirect CloudFront distribution**
 
+Same as before, go to the redirect S3 Bucket and copy the URL that you can find under the **Properties** tab > **Static website hosting** section:
 
+![Copy URL redirect](https://i.gyazo.com/5466df69835cdef38364297f341e7399.png)
+
+Now create your second CloudFront distribution. The configuration of the redirect CloudFront distribution will be almost the same, except for two details:
+- The **Origin domain** will be the URL of the redirect S3 Bucket:
+
+![Origin domain redirect](https://i.gyazo.com/f01900a37965545b858b30652aa3408a.png)
+
+- Fill in an **Alternate domain name (CNAME)** by inserting your redirect domain name::
+
+![Alternate domain name redirect](https://i.gyazo.com/f822a1c93f5a049d45f07baa055aa580.png)
+
+Once the configuration of your redirect distribution is complete, you can validate its creation.
+
+There are now two CloudFront distributions. Wait a few minutes to let the distributions be validated and enabled.
+
+In the meantime, go to the redirect S3 Bucket, **Properties tab** > **Static website hosting** section, to make a modification: change the used **Protocol** from HTTP to HTTPS:
+
+![Protocol HTTPS](https://i.gyazo.com/18a99e7363adf67e1cd34a3e57eb2578.png)
+
+Go back to CloudFront, where you copied the web addresses of your CloudFront distributions (**Domain name field**) in the navigator search bar, in order to verify that you can access your site through these web addresses:
+
+![Copy distributions domain name](https://i.gyazo.com/9f3a2c040b836ae6ce06063f0aed8a76.png)
+
+Copy the URL of the main CloudFront distribution:
+
+![HTTPS main distribution](https://i.gyazo.com/9727f55abea5a605d06b8acdb1e409b6.png)
+
+The website is accessible, and in HTTPS this time.
+
+Now copy the URL of the redirect CloudFront distribution:
+
+![HTTPS redirect distribution](https://i.gyazo.com/f9823742a3ce7ca591fe63347424aaad.png)
+
+To finalize, head to Route 53 to make changes to the A records, so that the web addresses route traffic to the freshly created Cloudfront distributions:
+
+![Modify A records](https://i.gyazo.com/da53847027addd18d48a2c93b09ba09e.png)
+
+The record for the main domain name should look like this:
+
+![A record main](https://i.gyazo.com/3c5e290825ea3d64beab73f848e1b364.png)
+
+And the record for the redirect domain name should look like that:
+
+![A record redirect](https://i.gyazo.com/7bfe860fb4a791bcaf342442caf9543b.png)
+
+Time to test the accessiblilty of the website through HTTP URLs to verify that the redirection to HTTPS works.
+
+First check the main domain in HTTP (*http://dream-big-work-hard-aws.com*)
+
+![HTTP to HTTPS main](https://i.gyazo.com/9727f55abea5a605d06b8acdb1e409b6.png)
+
+Second check the redirect domain in HTTP (*http://www<nolink>.dream-big-work-hard-aws.com*)
+
+![HTTP to HTTPS redirect](https://i.gyazo.com/f9823742a3ce7ca591fe63347424aaad.png)
+
+Wooray!!!! My first AWS project setting up a **Static Website** in HTTPS on AWS is complete!
 
 ---
